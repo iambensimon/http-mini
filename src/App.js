@@ -30,8 +30,10 @@ class App extends Component {
   }
 
   getVehicles() {
-    // axios (GET)
-    // setState with response -> vehiclesToDisplay
+    axios.get(`${this.state.baseURl}/api/vehicles`).then(response => {
+      this.setState({ vehiclesToDisplay: response.data});
+    }).catch(console.log);
+    })
   }
 
   getPotentialBuyers() {
@@ -40,25 +42,33 @@ class App extends Component {
   }
 
   sellCar(id) {
-    // axios (DELETE)
-    // setState with response -> vehiclesToDisplay
+    axios.delete(`${this.state.baseUrl}/api/vehicles/${id}`).then(response => {
+      this.setState ({ vehiclesToDisplay: response.data })
+    }).catch(console.log);
   }
 
   filterByMake() {
     let make = this.refs.selectedMake.value
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+  axios.get(`${this.state.baseUrl}/api/vehicles?make=${make}`).then(response => {
+    console.log(response);
+    this.setState({ vehiclesToDisplay: response.data});
+  })catch(console.log);
   }
 
   filterByColor() {
     let color = this.refs.selectedColor.value;
     // axios (GET)
     // setState with response -> vehiclesToDisplay
-  }
+    axios.get(`${this.state.baseUrl}/api/vehicles?color=${color}`).then(response => {
+      console.log(response);
+      this.setState({ vehiclesToDisplay: response.data});
+    })catch(console.log);
+    }
 
-  updatePrice(priceChange) {
-    // axios (PUT)
-    // setState with response -> vehiclesToDisplay
+  updatePrice(id, priceChange) {
+    axios.put(`${this.state.baseUrl}/api/vehicles/${id}/${priceChange} `).then(response =>)
   }
 
   addCar(){
@@ -69,8 +79,10 @@ class App extends Component {
     year: this.refs.year.value,
     price: this.refs.price.value
   }  
-  // axios (POST)
-  // setState with response -> vehiclesToDisplay
+  axios.post(`${this.state.baseUrl}/api/vehicles`, newCar).then(response => {
+    donsole.log(response);
+    this.setState({ vehiclesToDisplay: response.data })
+  }).catch(console.log);
 }
 
 addBuyer() {
